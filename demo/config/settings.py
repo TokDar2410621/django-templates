@@ -21,7 +21,9 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "demo-insecure-key-dev-only")
 DEBUG = os.environ.get("DEBUG", "off").lower() in ("1", "on", "true")
 
 _hote_railway = os.environ.get("RAILWAY_PUBLIC_DOMAIN", "")
-ALLOWED_HOSTS = [h for h in ["localhost", "127.0.0.1", _hote_railway] if h]
+# healthcheck.railway.app : l'hote avec lequel Railway sonde le service au
+# deploiement ; sans lui, l'app est saine mais le deploy echoue au healthcheck.
+ALLOWED_HOSTS = [h for h in ["localhost", "127.0.0.1", "healthcheck.railway.app", _hote_railway] if h]
 CSRF_TRUSTED_ORIGINS = [f"https://{_hote_railway}"] if _hote_railway else []
 
 # --- base de données -------------------------------------------------------
