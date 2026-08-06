@@ -39,13 +39,19 @@ services/selectors/views ; settings via `getattr(settings, ...)` ; JAMAIS
 `from django.contrib.auth.models import User` (toujours `AUTH_USER_MODEL` /
 `get_user_model()`) ; validation au bon niveau ; snake_case pour les modules.
 
-## Multi-machines
+## Ou vit la verite
 
-Le clone canonique de PC1 vit a `C:/Users/Darius/Desktop/django-templates`.
-Sur toute autre machine : clone via la carte des repos du cerveau
-(`04-systemes/repos.md`) et travaille dans le clone. Toute amelioration de
-template se commite ICI (branche + PR si le changement est structurel), jamais
-en copie divergente dans un projet consommateur.
+Ce repo EST la source de verite. Toute amelioration de template se commite ICI
+(branche + PR si le changement est structurel), jamais en copie divergente dans
+un projet consommateur. Si tu n'es pas Darius : tu as un acces en lecture ;
+propose tes ameliorations en PR, ne pousse pas sur main.
+
+Machines de Darius seulement : le clone canonique de PC1 vit a
+`C:/Users/Darius/Desktop/django-templates` ; ailleurs, resous le repo via la
+carte des repos du cerveau (`04-systemes/repos.md`).
+
+Vitrine en ligne (les 13 apps montees, actives ou dormantes selon les cles) :
+https://web-production-7b1cc.up.railway.app
 
 ## Interdits
 
