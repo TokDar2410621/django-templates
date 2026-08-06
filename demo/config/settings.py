@@ -68,6 +68,8 @@ INSTALLED_APPS = [
     "stripe_connect_multivendor",
     "newsletter_engine",
     "shop_engine",
+    "realtime_messaging",
+    "voice_messages",
 ]
 if POSTGRES:
     # pgvector exige Postgres : l'app rag ne se monte que là où elle peut vivre.

@@ -24,6 +24,8 @@ APPS_MONTEES = [
     ("connect", "stripe_connect_multivendor.urls", "STRIPE_SECRET_KEY"),
     ("newsletter", "newsletter_engine.urls", "RESEND_API_KEY"),
     ("shop", "shop_engine.urls", "STRIPE_SECRET_KEY"),
+    ("messaging", "realtime_messaging.urls", "REDIS_URL"),
+    ("voice", "voice_messages.urls", None),
 ]
 
 from django.conf import settings as _s

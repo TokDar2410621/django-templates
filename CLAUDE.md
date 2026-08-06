@@ -10,6 +10,10 @@ sur toute machine qui clone ce repo : c'est le skill embarque.
 2. Lis `README.md` : l'usage de la librairie.
 3. Si un template correspond au besoin : lis `apps/<slug>/README.md` + `SETTINGS.md`.
 
+Ajouts recents : `realtime_messaging` (chat temps reel Redis + Channels,
+extrait de SMN et FIN) et `voice_messages` (notes vocales autonomes) ;
+integration declaree entre les deux, jamais d'import croise.
+
 ## Les quatre modes (declare le mode en premiere ligne de ta reponse)
 
 - **REUSE** : un template couvre le besoin. Copie `apps/<slug>/` dans le projet,
