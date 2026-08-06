@@ -46,7 +46,7 @@ def accueil(request):
                      "etat": "non monté (exige Postgres + pgvector)"})
     return JsonResponse(
         {
-            "librairie": "django-templates (TokDar2410621, privé)",
+            "librairie": "django-templates (TokDar2410621, public)",
             "role": "vitrine : preuve vivante que les 13 templates bootent et coexistent",
             "apps": apps,
             "admin": "/admin/",

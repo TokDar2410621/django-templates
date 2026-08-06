@@ -170,8 +170,8 @@ TETE = """<!doctype html>
 
 PIED = """
 <footer>
-  <span>django-templates : librairie privée de Darius Tokam</span>
-  <a href="{repo}">GitHub (accès requis)</a>
+  <span>django-templates : la librairie de Darius Tokam</span>
+  <a href="{repo}">GitHub</a>
   <a href="{demo}">Vitrine live (Railway)</a>
 </footer>
 </div></body></html>
@@ -208,7 +208,7 @@ def page_index(apps, snippets):
   </div>
   <div class="liens-hero">
     <a class="btn plein" href="{DEMO_URL}">Vitrine live : les {len(apps)} apps montées</a>
-    <a class="btn" href="{REPO_URL}">Repo GitHub (privé)</a>
+    <a class="btn" href="{REPO_URL}">Repo GitHub (public)</a>
     <a class="btn" href="#workflow">Comment s'en servir</a>
   </div>
 </header>

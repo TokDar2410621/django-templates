@@ -47,7 +47,7 @@ services/selectors/views ; settings via `getattr(settings, ...)` ; JAMAIS
 
 Ce repo EST la source de verite. Toute amelioration de template se commite ICI
 (branche + PR si le changement est structurel), jamais en copie divergente dans
-un projet consommateur. Si tu n'es pas Darius : tu as un acces en lecture ;
+un projet consommateur. Si tu n'es pas Darius : le repo est public en lecture ;
 propose tes ameliorations en PR, ne pousse pas sur main.
 
 Machines de Darius seulement : le clone canonique de PC1 vit a
