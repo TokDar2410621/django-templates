@@ -264,9 +264,14 @@ def page_app(a):
 
 
 def main():
+    # Table rase SAUF .vercel : c'est le lien du projet Vercel ; l'effacer fait
+    # atterrir le prochain deploy dans un projet parasite nomme "dist" (vecu).
     if DIST.exists():
-        shutil.rmtree(DIST)
-    (DIST / "apps").mkdir(parents=True)
+        for enfant in DIST.iterdir():
+            if enfant.name == ".vercel":
+                continue
+            shutil.rmtree(enfant) if enfant.is_dir() else enfant.unlink()
+    (DIST / "apps").mkdir(parents=True, exist_ok=True)
     apps = parse_catalog()
     for a in apps:
         a["verbose"] = verbose_name(a["slug"])
