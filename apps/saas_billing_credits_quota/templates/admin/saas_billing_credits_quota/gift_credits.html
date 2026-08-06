@@ -1,0 +1,24 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+<form method="post">
+  {% csrf_token %}
+  <p>Adding gift credits to <strong>{{ balances|length }}</strong> user(s):</p>
+  <ul>
+    {% for bal in balances %}
+      <li>{{ bal.user }} (current balance: {{ bal.balance }})</li>
+    {% endfor %}
+  </ul>
+
+  {{ form.as_p }}
+
+  {% for bal in balances %}
+    <input type="hidden" name="_selected_action" value="{{ bal.pk }}">
+  {% endfor %}
+  <input type="hidden" name="action" value="{{ action_name }}">
+  <input type="hidden" name="apply" value="1">
+
+  <input type="submit" value="Add gift credits" class="default">
+  <a href="../">Cancel</a>
+</form>
+{% endblock %}
