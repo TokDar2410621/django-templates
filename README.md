@@ -56,3 +56,7 @@ django-templates/
 - Validation at the right level (serializer = shape, service = rules)
 - Settings configurable via `django.conf.settings`
 - Depends on `settings.AUTH_USER_MODEL`
+
+## License
+
+MIT. Use it, copy it, ship it. A link back is appreciated, never required.

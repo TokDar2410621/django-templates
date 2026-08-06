@@ -170,7 +170,7 @@ TETE = """<!doctype html>
 
 PIED = """
 <footer>
-  <span>django-templates : la librairie de Darius Tokam</span>
+  <span>django-templates : la librairie de Darius Tokam · licence MIT</span>
   <a href="{repo}">GitHub</a>
   <a href="{demo}">Vitrine live (Railway)</a>
 </footer>
