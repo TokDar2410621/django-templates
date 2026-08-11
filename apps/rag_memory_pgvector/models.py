@@ -155,9 +155,13 @@ class Memory(models.Model):
         verbose_name = "Memory chunk"
         verbose_name_plural = "Memory chunks"
         ordering = ("-created_at",)
+        # Les noms sont explicites et DOIVENT rester alignes sur 0001_initial.
+        # Sans nom, Django en calcule un hache (rag_memory_tenant__491d5d_idx)
+        # qui ne correspond jamais a celui de la migration : l'autodetector voit
+        # alors un ecart permanent et chaque demarrage reclame une migration.
         indexes = [
-            models.Index(fields=["tenant", "kind"]),
-            models.Index(fields=["tenant", "source_ref"]),
+            models.Index(fields=["tenant", "kind"], name="rag_memory_tenant_kind_idx"),
+            models.Index(fields=["tenant", "source_ref"], name="rag_memory_tenant_src_idx"),
         ]
 
     def __str__(self) -> str:

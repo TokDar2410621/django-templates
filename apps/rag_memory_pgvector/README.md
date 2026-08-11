@@ -2,13 +2,37 @@
 
 ═════════════════════════════════════════════
 Template : rag-memory-pgvector
-Version  : 1.0.0
+Version  : 1.0.1
 Mode     : EXTRACT-A
 Source   : blog-dashboard/backend/sites_mgmt (memory_index, chunking, embeddings)
 Stack    : Django 5+ / DRF / Postgres + pgvector / Voyage AI (default)
 Deps     : `pgvector>=0.3`, `djangorestframework>=3.14`, `voyageai>=0.3` (optional — swappable)
-Used by  : (none yet)
+Used by  : smart-post-assistant
 ═════════════════════════════════════════════
+
+## Changelog
+
+### 1.0.1 (2026-08-10)
+
+Corrige une derive permanente entre le modele et `0001_initial`, remontee
+depuis smart-post-assistant ou la production affichait a chaque demarrage
+« your models have changes that are not yet reflected in a migration ».
+
+Deux causes cumulees, aucune ne touchant le schema en base :
+
+- les index de `Meta` n'avaient pas de nom, Django en calculait donc un hache
+  qui ne pouvait jamais correspondre au nom ecrit dans la migration
+- les dix `help_text` du modele et les `choices` de `kind` n'existaient pas
+  dans la migration ecrite a la main
+
+`0001_initial` est resynchronisee plutot que doublee d'un `0002`, la migration
+initiale restant unique tant qu'aucun projet n'a applique l'ancienne version.
+Les projets qui l'ont deja appliquee ont besoin d'un `0002` de rattrapage, a
+generer avec des settings Postgres.
+
+Ajout de `tests/test_migration_state.py`, qui echoue des qu'une derive
+reapparait. Il passe par l'autodetector en memoire plutot que par
+`makemigrations --check`, qui exige une base reelle.
 
 Per-tenant RAG memory store. Each row is one chunk (article paragraph, KB
 section, audit summary, manual note…) plus its pgvector embedding. Callers
