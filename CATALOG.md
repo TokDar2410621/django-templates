@@ -7,7 +7,7 @@ Detailed technical index of every template. For human-readable summary see
 |---|---|---|---|---|---|
 | `legal-cms-pages` | 1.0.0 | EXTRACT-A | FIN/legal | drf, markdown, bleach, unfold | ready |
 | `auth-jwt-oauth` | 1.0.0 | EXTRACT-A | FIN/users | drf, simplejwt, allauth, dj-rest-auth | ready |
-| `rag-memory-pgvector` | 1.0.0 | EXTRACT-A | Blog/sites_mgmt | pgvector, voyageai | ready |
+| `rag-memory-pgvector` | 1.0.1 | EXTRACT-A | Blog/sites_mgmt | pgvector, voyageai | ready |
 | `conversational-ai-engine` | 1.0.0 | EXTRACT-B | smart-post | anthropic, drf | ready |
 | `saas-billing-credits-quota` | 1.0.0 | EXTRACT-A | Blog/sites_mgmt | stripe, drf | ready |
 | `notifications-multichannel` | 1.0.0 | EXTRACT-A | FIN/notifications | resend, pywebpush, twilio | ready |

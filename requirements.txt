@@ -20,3 +20,5 @@ gunicorn
 whitenoise
 dj-database-url
 psycopg[binary]
+pytest
+pytest-django
