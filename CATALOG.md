@@ -20,6 +20,7 @@ Detailed technical index of every template. For human-readable summary see
 | `shop-engine` | 1.0.0 | CREATE | (inspired by SMN/shop) | drf, stripe, celery (opt) | ready |
 | `realtime-messaging` | 1.0.1 | EXTRACT-A | FIN/conversations + SMN/conversations | channels, redis, drf, simplejwt | ready |
 | `voice-messages` | 1.0.0 | EXTRACT-A | SMN/conversations (upload media) | drf | ready |
+| `push-notifications` | 1.0.0 | EXTRACT-B | planner/apns + notifications-multichannel (Web Push) | drf, pywebpush, httpx[http2], pyjwt, google-auth | ready |
 
 ## Snippets (`snippets/`)
 

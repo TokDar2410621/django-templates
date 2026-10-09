@@ -13,6 +13,9 @@ sur toute machine qui clone ce repo : c'est le skill embarque.
 Ajouts recents : `realtime_messaging` (chat temps reel Redis + Channels,
 extrait de SMN et FIN) et `voice_messages` (notes vocales autonomes) ;
 integration declaree entre les deux, jamais d'import croise.
+`push_notifications` (2026-10-09) : push navigateur, Android et iPhone (Web Push,
+Firebase v1, APNs, Expo) et client Flutter ; `notifications_multichannel` garde
+courriel, SMS et Web Push.
 
 ## Les quatre modes (declare le mode en premiere ligne de ta reponse)
 

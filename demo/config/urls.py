@@ -26,6 +26,7 @@ APPS_MONTEES = [
     ("shop", "shop_engine.urls", "STRIPE_SECRET_KEY"),
     ("messaging", "realtime_messaging.urls", "REDIS_URL"),
     ("voice", "voice_messages.urls", None),
+    ("push", "push_notifications.urls", "PUSH_VAPID_PUBLIC_KEY"),
 ]
 
 from django.conf import settings as _s
