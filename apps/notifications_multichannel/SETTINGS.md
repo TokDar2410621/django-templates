@@ -77,12 +77,15 @@ RESEND_REPLY_TO = {
 You can add custom roles (e.g. `marketing`, `support`) by appending keys
 to both dicts — callers just pass `role="support"` to `send_email`.
 
-### Web Push — VAPID
+### Web Push: VAPID
 
 Generate a VAPID keypair once (e.g. `npx web-push generate-vapid-keys`)
-and stash the values in env. The private key is a PEM block; paste it as
-a single line with literal `\n` escapes for the newlines — the backend
-restores them at runtime.
+and stash the values in env. The private key may be the raw base64url key
+(what `web-push generate-vapid-keys` prints), a PEM block, or a PEM block
+pasted on a single line with literal `\n` escapes. Since 1.0.1 the backend
+converts a PEM key to the raw form pywebpush reads: pywebpush itself
+rejects a PEM string ("Could not deserialize key data"), which broke every
+real send in 1.0.0.
 
 ```env
 VAPID_PUBLIC_KEY=BJxxxxxx

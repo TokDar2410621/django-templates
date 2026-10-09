@@ -1,4 +1,4 @@
-"""Django Channels middleware — authenticate WebSocket connections via JWT.
+"""Django Channels middleware: authenticate WebSocket connections via JWT.
 
 WebSocket clients can't send custom HTTP headers from the browser, so the
 JWT access token is passed as a query parameter:
@@ -9,7 +9,7 @@ This middleware decodes the token, looks up the user, and populates
 ``scope['user']`` for downstream consumers. Falls back to ``AnonymousUser``
 on any error (invalid token, missing user, banned user).
 
-USAGE — copy this file into your project (e.g. `apps/realtime/jwt_middleware.py`)
+USAGE: copy this file into your project (e.g. `apps/realtime/jwt_middleware.py`)
 and wire it in `config/asgi.py`:
 
     from django.core.asgi import get_asgi_application
@@ -30,11 +30,15 @@ and JWT auth supported on the same WS endpoint:
 
     "websocket": AuthMiddlewareStack(JWTAuthMiddleware(URLRouter(...)))
 
-EXTRA-FILTERS — by default this middleware filters out banned users via
+Without ``?token=``, the user already set by AuthMiddlewareStack is kept.
+(Before 2026-10-09 it was overwritten with AnonymousUser, which logged out
+every session-authenticated client of a stacked setup.)
+
+EXTRA-FILTERS: by default this middleware filters out banned users via
 a ``is_banned=False`` lookup. If your User model doesn't have that field,
 remove the filter (see `_get_user` below).
 
-DEPENDS ON — `channels>=4.0`, `djangorestframework-simplejwt>=5.3`.
+DEPENDS ON: `channels>=4.0`, `djangorestframework-simplejwt>=5.3`.
 """
 from __future__ import annotations
 
@@ -78,6 +82,7 @@ class JWTAuthMiddleware(BaseMiddleware):
         token_list = params.get("token", [])
         if token_list:
             scope["user"] = await _get_user(token_list[0])
-        else:
+        elif "user" not in scope:
+            # Keep a user already set by AuthMiddlewareStack (cookie session).
             scope["user"] = AnonymousUser()
         return await super().__call__(scope, receive, send)

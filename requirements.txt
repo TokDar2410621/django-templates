@@ -11,6 +11,10 @@ anthropic
 stripe
 resend
 pywebpush
+httpx[http2]
+pyjwt
+cryptography
+google-auth
 twilio
 requests
 qrcode

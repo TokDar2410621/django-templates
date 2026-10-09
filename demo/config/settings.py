@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     "shop_engine",
     "realtime_messaging",
     "voice_messages",
+    "push_notifications",
 ]
 if POSTGRES:
     # pgvector exige Postgres : l'app rag ne se monte que là où elle peut vivre.
@@ -132,6 +133,16 @@ STORAGES = {
     "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
     "staticfiles": {"BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"},
 }
+
+# push_notifications : chaque fournisseur dort tant que ses cles manquent.
+PUSH_VAPID_PUBLIC_KEY = os.environ.get("PUSH_VAPID_PUBLIC_KEY", "")
+PUSH_VAPID_PRIVATE_KEY = os.environ.get("PUSH_VAPID_PRIVATE_KEY", "")
+PUSH_VAPID_CONTACT = os.environ.get("PUSH_VAPID_CONTACT", "")
+PUSH_FCM_CREDENTIALS = os.environ.get("PUSH_FCM_CREDENTIALS", "")
+PUSH_APNS_TEAM_ID = os.environ.get("PUSH_APNS_TEAM_ID", "")
+PUSH_APNS_KEY_ID = os.environ.get("PUSH_APNS_KEY_ID", "")
+PUSH_APNS_AUTH_KEY = os.environ.get("PUSH_APNS_AUTH_KEY", "")
+PUSH_APNS_BUNDLE_ID = os.environ.get("PUSH_APNS_BUNDLE_ID", "")
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 

@@ -1,6 +1,6 @@
 ═════════════════════════════════════════════
 Template : realtime-messaging
-Version  : 1.0.0
+Version  : 1.0.1
 Mode     : EXTRACT-A
 Source   : FIN/apps/conversations (coeur) + SMN/apps/conversations (types media, durees)
 Stack    : Django 5+ / DRF / Channels / Redis
@@ -9,6 +9,16 @@ Used by  : (vide)
 ═════════════════════════════════════════════
 
 # Realtime Messaging (Redis + Channels)
+
+## Changelog
+
+### 1.0.1 (2026-10-09)
+
+`JWTAuthMiddleware` ne remplace plus `scope["user"]` par `AnonymousUser`
+quand `?token=` manque. Empile sous `AuthMiddlewareStack` (session et JWT sur
+le meme WebSocket), il deconnectait en silence tout client authentifie par
+cookie. Meme correction dans `snippets/channels_jwt_middleware.py`. Test :
+`tests/test_middleware.py`, qui echoue sur la 1.0.0.
 
 Messagerie temps reel entre utilisateurs, extraite de deux systemes en
 production : SendMeNow (messagerie au coeur du produit) et FindItNow (chat

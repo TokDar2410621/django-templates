@@ -2,13 +2,29 @@
 
 ═════════════════════════════════════════════
 Template : notifications-multichannel
-Version  : 1.0.0
+Version  : 1.0.1
 Mode     : EXTRACT-A
 Source   : FIN/apps/notifications
 Stack    : Django 5+ / DRF / Resend / pywebpush / Twilio / (unfold optional)
 Deps     : `resend>=2.0` *(or just `requests`)*, `pywebpush>=2.0`, `twilio>=8.0`, `djangorestframework`
 Used by  : (none yet)
 ═════════════════════════════════════════════
+
+## Changelog
+
+### 1.0.1 (2026-10-09)
+
+- Web Push with a PEM private key (the format SETTINGS.md recommended)
+  failed on every real send: pywebpush rejects a PEM string with "Could not
+  deserialize key data". The mocked tests never saw it. The backend now
+  converts PEM to the raw key pywebpush reads; an unreadable key returns
+  `failed` without sending.
+- Expired subscriptions are pruned on HTTP 404 as well as 410.
+- New `tests/test_push_real.py`: real encryption, real VAPID signature and
+  decryption by the subscriber's key against a local push service, no mock.
+  Four of its five cases fail on 1.0.0.
+
+For mobile push (Firebase, Apple, Expo), see the `push-notifications` template.
 
 Unified service layer for the three transactional channels every consumer
 app eventually needs: **email** (Resend), **Web Push** (VAPID via
