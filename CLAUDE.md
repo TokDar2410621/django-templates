@@ -17,6 +17,13 @@ integration declaree entre les deux, jamais d'import croise.
 Firebase v1, APNs, Expo) et client Flutter ; `notifications_multichannel` garde
 courriel, SMS et Web Push.
 
+## Le skill Claude Code
+
+Le skill de cette librairie vit dans `skill/django-templates-library/` (installation :
+`skill/README.md`). Avant chaque usage, il lance `scripts/sync_library.py` : clone si
+absente, mise a jour si en retard, et jamais rien d'ecrase s'il y a du travail local.
+Toute evolution du skill se fait ICI, puis se recopie dans `~/.claude/skills/`.
+
 ## Les quatre modes (declare le mode en premiere ligne de ta reponse)
 
 - **REUSE** : un template couvre le besoin. Copie `apps/<slug>/` dans le projet,

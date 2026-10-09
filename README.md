@@ -33,6 +33,12 @@ django-templates/
     <name>.py             (micro-templates: middleware, helpers, settings mixins)
 ```
 
+## Using it with Claude Code
+
+Install the skill in `skill/django-templates-library/` (see `skill/README.md`).
+Before any Django backend task, Claude syncs this library (clone if missing,
+update if behind), reads `CATALOG.md` and picks the right template.
+
 ## How to use a template
 
 1. Copy `apps/<slug>/` into your project under `apps/`.
