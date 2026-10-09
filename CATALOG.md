@@ -18,7 +18,7 @@ Detailed technical index of every template. For human-readable summary see
 | `stripe-connect-multivendor` | 1.0.0 | EXTRACT-B | SMN/shop | stripe, drf, unfold | ready |
 | `newsletter-engine` | 1.0.0 | CREATE | (inspired by Blog/Lead funnel) | drf, requests, celery (opt) | ready |
 | `shop-engine` | 1.0.0 | CREATE | (inspired by SMN/shop) | drf, stripe, celery (opt) | ready |
-| `realtime-messaging` | 1.0.0 | EXTRACT-A | FIN/conversations + SMN/conversations | channels, redis, drf, simplejwt | ready |
+| `realtime-messaging` | 1.0.1 | EXTRACT-A | FIN/conversations + SMN/conversations | channels, redis, drf, simplejwt | ready |
 | `voice-messages` | 1.0.0 | EXTRACT-A | SMN/conversations (upload media) | drf | ready |
 
 ## Snippets (`snippets/`)

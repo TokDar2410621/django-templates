@@ -28,10 +28,19 @@ def _get_user(token_str: str):
 
 
 class JWTAuthMiddleware(BaseMiddleware):
-    """Populate ``scope['user']`` from the ?token= query parameter."""
+    """Populate ``scope['user']`` from the ?token= query parameter.
+
+    Without ``?token=``, an existing ``scope['user']`` is kept: stacked under
+    ``AuthMiddlewareStack``, a session-authenticated user stays authenticated.
+    Overwriting it with ``AnonymousUser`` silently logged out every
+    cookie-based client.
+    """
 
     async def __call__(self, scope, receive, send):
         params = parse_qs(scope.get("query_string", b"").decode("utf-8"))
         tokens = params.get("token", [])
-        scope["user"] = await _get_user(tokens[0]) if tokens else AnonymousUser()
+        if tokens:
+            scope["user"] = await _get_user(tokens[0])
+        elif "user" not in scope:
+            scope["user"] = AnonymousUser()
         return await super().__call__(scope, receive, send)
