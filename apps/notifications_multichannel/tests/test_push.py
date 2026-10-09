@@ -58,17 +58,40 @@ def test_push_prunes_410_gone(user, push_sub, vapid_configured, mock_webpush):
 
 
 @pytest.mark.django_db
-def test_push_pem_unwrap(user, push_sub, settings, mock_webpush):
-    """``\\n`` escape sequences in the env-var PEM are restored at runtime."""
-    settings.VAPID_PUBLIC_KEY = "BPUB"
-    settings.VAPID_PRIVATE_KEY = (
-        "-----BEGIN PRIVATE KEY-----\\nLINE1\\nLINE2\\n-----END PRIVATE KEY-----"
-    )
-    settings.VAPID_ADMIN_EMAIL = "admin@example.com"
+def test_push_prunes_404_gone(user, push_sub, vapid_configured, mock_webpush):
+    """Some push services answer 404 (not 410) for an expired subscription."""
+    class FakeResponse:
+        status_code = 404
+
+    def raise_404(**kwargs):
+        raise mock_webpush.WebPushException("not found", response=FakeResponse())
+
+    mock_webpush.webpush.side_effect = raise_404
+    result = send_push(user=user, title="hi", body="hello")
+    assert result.meta["pruned"] == 1
+    assert PushSubscription.objects.filter(user=user).count() == 0
+
+
+@pytest.mark.django_db
+def test_push_pem_converted_for_pywebpush(user, push_sub, vapid_configured, mock_webpush):
+    """A PEM key (single-line, literal ``\\n``) reaches pywebpush in a form it can read."""
+    from py_vapid import Vapid
+
     send_push(user=user, title="x", body="y")
     sent_priv = mock_webpush.webpush.call_args.kwargs["vapid_private_key"]
-    assert "\\n" not in sent_priv  # double-backslash literal absent
-    assert "LINE1\nLINE2" in sent_priv
+    assert "BEGIN" not in sent_priv
+    Vapid.from_string(sent_priv)  # raises on a PEM string: the 1.0.0 bug
+
+
+@pytest.mark.django_db
+def test_push_unreadable_pem_fails_without_sending(user, push_sub, settings, mock_webpush):
+    settings.VAPID_PUBLIC_KEY = "BPUB"
+    settings.VAPID_PRIVATE_KEY = "-----BEGIN PRIVATE KEY-----\\nLINE1\\n-----END PRIVATE KEY-----"
+    settings.VAPID_ADMIN_EMAIL = "admin@example.com"
+    result = send_push(user=user, title="x", body="y")
+    assert result.status == "failed"
+    assert result.error == "VAPID private key unreadable"
+    assert mock_webpush.webpush.call_count == 0
 
 
 @pytest.mark.django_db

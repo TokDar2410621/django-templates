@@ -10,7 +10,7 @@ Detailed technical index of every template. For human-readable summary see
 | `rag-memory-pgvector` | 1.0.1 | EXTRACT-A | Blog/sites_mgmt | pgvector, voyageai | ready |
 | `conversational-ai-engine` | 1.0.0 | EXTRACT-B | smart-post | anthropic, drf | ready |
 | `saas-billing-credits-quota` | 1.0.0 | EXTRACT-A | Blog/sites_mgmt | stripe, drf | ready |
-| `notifications-multichannel` | 1.0.0 | EXTRACT-A | FIN/notifications | resend, pywebpush, twilio | ready |
+| `notifications-multichannel` | 1.0.1 | EXTRACT-A | FIN/notifications | resend, pywebpush, twilio | ready |
 | `team-membership-invites` | 1.0.0 | EXTRACT-A | FIN/families | drf | ready |
 | `hashed-api-tokens` | 1.0.0 | EXTRACT-A | Blog/ApiToken | drf | ready |
 | `qr-tag-activation-batches` | 1.0.0 | EXTRACT-A | FIN/activation | drf, unfold | ready |

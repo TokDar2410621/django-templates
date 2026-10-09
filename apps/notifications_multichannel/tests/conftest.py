@@ -67,11 +67,30 @@ def resend_configured(settings):
     return settings
 
 
+def generate_vapid_pem() -> tuple[str, str]:
+    """A real EC P-256 keypair: (public key base64url, private key PEM)."""
+    import base64
+
+    from cryptography.hazmat.primitives import serialization
+    from cryptography.hazmat.primitives.asymmetric import ec
+
+    key = ec.generate_private_key(ec.SECP256R1())
+    public = key.public_key().public_bytes(
+        serialization.Encoding.X962, serialization.PublicFormat.UncompressedPoint
+    )
+    pem = key.private_bytes(
+        serialization.Encoding.PEM, serialization.PrivateFormat.PKCS8, serialization.NoEncryption()
+    ).decode()
+    return base64.urlsafe_b64encode(public).rstrip(b"=").decode(), pem
+
+
 @pytest.fixture
 def vapid_configured(settings):
-    # PEM is single-line with \\n placeholders — the backend un-escapes them.
-    settings.VAPID_PUBLIC_KEY = "BPUBKEY"
-    settings.VAPID_PRIVATE_KEY = "-----BEGIN PRIVATE KEY-----\\nfake\\n-----END PRIVATE KEY-----"
+    # A real key, pasted single-line with literal \\n as in an env var: the
+    # backend must un-escape it AND convert it for pywebpush.
+    public, pem = generate_vapid_pem()
+    settings.VAPID_PUBLIC_KEY = public
+    settings.VAPID_PRIVATE_KEY = pem.replace("\n", "\\n")
     settings.VAPID_ADMIN_EMAIL = "admin@example.com"
     return settings
 
